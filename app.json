@@ -25,7 +25,7 @@
       "package": "com.charleswambua.mksapp"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "https://ngcdf.go.ke/wp-content/uploads/2020/01/cropped-cdf-official-logo.png"
     },
     "extra": {
       "eas": {
