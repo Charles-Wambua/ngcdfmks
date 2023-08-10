@@ -4,10 +4,10 @@
     "slug": "mksapp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "https://ngcdf.go.ke/wp-content/uploads/2020/01/cropped-cdf-official-logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "https://ngcdf.go.ke/wp-content/uploads/2020/01/cropped-cdf-official-logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,12 +19,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "https://ngcdf.go.ke/wp-content/uploads/2020/01/cropped-cdf-official-logo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.charleswambua.mksapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "dc23e972-9ba7-480e-b7ae-52ca12d754c4"
+      }
     }
   }
 }
