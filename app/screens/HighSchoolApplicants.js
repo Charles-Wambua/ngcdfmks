@@ -15,6 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { Alert } from "react-native";
 import { Octicons } from "@expo/vector-icons";
+import { ScrollView } from "react-native-gesture-handler";
 
 import { FontAwesome5 } from "@expo/vector-icons";
 
@@ -37,6 +38,7 @@ const HighSchoolApplicants = () => {
       .then((response) => response.json())
       .then((data) => {
         setApplicants(data);
+        console.log(applicants)
         setLoading(false);
       })
       .catch((error) => {
@@ -143,9 +145,6 @@ const HighSchoolApplicants = () => {
       });
     }
 
-    // ... Add more sorting conditions for other filters
-
-    // Update the applicants state with the sorted applicants
     setApplicants(sortedApplicants);
 
     // Close the sorting modal
@@ -184,7 +183,7 @@ const HighSchoolApplicants = () => {
       return null;
     }
 
-    const { images, name, institution, gender, subLocation } =
+    const { images, name, institution, gender, subLocation,id, birthCertificate } =
       selectedApplicant;
 
     return (
@@ -194,26 +193,7 @@ const HighSchoolApplicants = () => {
         animationType="slide"
       >
         <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.applicantName}>{name}</Text>
-            <Text style={styles.applicantDetails}>
-              Institution: {institution}
-            </Text>
-            <Text style={styles.applicantDetails}>Gender: {gender}</Text>
-            <Text style={styles.applicantDetails}>
-              Sublocation: {subLocation}
-            </Text>
-            {renderImages(images)}
-            {enlargedImage && (
-              <Pressable onPress={closeImageModal}>
-                <Image
-                  style={styles.enlargedImage}
-                  resizeMode="contain"
-                  source={{ uri: enlargedImage }}
-                />
-              </Pressable>
-            )}
-            <Pressable onPress={closeModal}>
+        <Pressable onPress={closeModal}>
               <Text
                 style={{
                   color: "white",
@@ -228,6 +208,27 @@ const HighSchoolApplicants = () => {
                 Close
               </Text>
             </Pressable>
+          <View style={styles.modalContent}>
+            <Text style={styles.applicantName}>{name}</Text>
+            <Text style={styles.applicantDetails}>
+              Institution: {institution}
+            </Text>
+            <Text style={styles.applicantDetails}>Gender: {gender}</Text>
+            
+            <Text style={styles.applicantDetails}>
+              Sublocation: {subLocation}
+            </Text>
+            {renderImages(images)}
+            {enlargedImage && (
+              <Pressable onPress={closeImageModal}>
+                <Image
+                  style={styles.enlargedImage}
+                  resizeMode="contain"
+                  source={{ uri: enlargedImage }}
+                />
+              </Pressable>
+            )}
+            
           </View>
         </View>
       </Modal>
@@ -257,26 +258,7 @@ const HighSchoolApplicants = () => {
           </Text>
         </Pressable>
 
-        <Pressable style={{ flexDirection: "row", alignItems: "center" }}>
-          <Ionicons name="filter" size={22} color="gray" />
-          <Text style={{ fontSize: 15, fontWeight: "500", marginLeft: 8 }}>
-            Filter
-          </Text>
-        </Pressable>
-
-        <Pressable
-          onPress={() =>
-            navigation.navigate("Map", {
-              searchResults: searchPlaces,
-            })
-          }
-          style={{ flexDirection: "row", alignItems: "center" }}
-        >
-          <FontAwesome5 name="map-marker-alt" size={22} color="gray" />
-          <Text style={{ fontSize: 15, fontWeight: "500", marginLeft: 8 }}>
-            Map
-          </Text>
-        </Pressable>
+        
       </Pressable>
       <View style={styles.container}>
         {loading ? (
@@ -296,6 +278,13 @@ const HighSchoolApplicants = () => {
                       <Text style={styles.applicantDetails}>
                         Gender: {item.gender}
                       </Text>
+                      <Text style={styles.applicantDetails}>
+                        Birth Cerificate no: {item.birthCertificate}
+                      </Text>
+                      <Text style={styles.applicantDetails}>
+                        Parent/Guardian's ID no: {item.parentId}
+                      </Text>
+                     
                       <Text style={styles.applicantDetails}>
                         Sublocation: {item.subLocation}
                       </Text>

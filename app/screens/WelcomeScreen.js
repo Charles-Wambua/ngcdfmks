@@ -61,7 +61,7 @@ export default function WelcomeScreen() {
         studyMode: selectedmodeofstudy,
         familyStatus: selectedFamilyStatus,
         fatherIncome: fatherIncome,
-        motherIncome: motherIncome,
+       
         applicationDate: applicationDate,
       };
       function generateFormId() {
@@ -97,12 +97,12 @@ export default function WelcomeScreen() {
           setSelectedWard("");
           setSelectedLocation("");
           setSelectedSubLocation("");
-          setBirthCertificate("")
+          setBirthCertificate("");
           setStudyLevel("");
           setSelectedModeofStudy("");
           setSelectedFamilyStatus("");
           setFatherIncome("");
-          setMotherIncome("");
+          
           setApplicationDate("");
         })
         .catch((error) => {
@@ -110,15 +110,26 @@ export default function WelcomeScreen() {
           if (error.response && error.response.status === 400) {
             alert(error.response.data.error);
           } else {
-            alert('An error occurred. Please try again later.');
+            alert("An error occurred. Please try again later.");
           }
         });
     }
   };
+  const levelOfStudy = [
+    { key: "1", value: "Degree" },
+    { key: "2", value: "Diploma" },
+    { key: "3", value: "Certificate" },
+  ];
   const modeofStudy = [
     { key: "1", value: "Regular" },
     { key: "2", value: "Part-time" },
     { key: "3", value: "Full-time" },
+  ];
+  const familyEarnings = [
+    { key: "1", value: "Less than 20,000" },
+    { key: "2", value: "Less than 50,000" },
+    { key: "3", value: "Less than 100,000" },
+    { key: "4", value: "N/A" },
   ];
   const familyStatus = [
     { key: "1", value: "Both parents alive" },
@@ -196,7 +207,10 @@ export default function WelcomeScreen() {
       (id === "" && birthCertificate === "") || // Both ID and Birth Certificate are empty
       (id !== "" && birthCertificate !== "") // Both ID and Birth Certificate are filled
     ) {
-      Alert.alert("Error", "Please provide either the ID or Birth Certificate, but not both.");
+      Alert.alert(
+        "Error",
+        "Please provide either the ID or Birth Certificate, but not both."
+      );
       return false;
     }
     if (
@@ -217,7 +231,7 @@ export default function WelcomeScreen() {
       // selectedmodeofstudy===""||
       familyStatus === "" ||
       fatherIncome === "" ||
-      motherIncome === "" ||
+      
       applicationDate === ""
     ) {
       Alert.alert("Error", "Please fill in all the required fields");
@@ -241,10 +255,10 @@ export default function WelcomeScreen() {
       // Clear the ID input if Birth Certificate is filled
       setID("");
     }
-  }
+  };
   const handleApplicationDateChange = (input) => {
     // Filter out non-digit characters to form a pure numeric string (DDMMYYYY)
-    const numericDate = input.replace(/\D/g, '');
+    const numericDate = input.replace(/\D/g, "");
 
     // Format the numericDate as DD/MM/YYYY while handling variations
     if (numericDate.length <= 2) {
@@ -253,7 +267,10 @@ export default function WelcomeScreen() {
       setApplicationDate(`${numericDate.slice(0, 2)}/${numericDate.slice(2)}`);
     } else if (numericDate.length <= 8) {
       setApplicationDate(
-        `${numericDate.slice(0, 2)}/${numericDate.slice(2, 4)}/${numericDate.slice(4)}`
+        `${numericDate.slice(0, 2)}/${numericDate.slice(
+          2,
+          4
+        )}/${numericDate.slice(4)}`
       );
     }
   };
@@ -378,11 +395,13 @@ export default function WelcomeScreen() {
             placeholder="Select Sub Location"
           />
           <Text style={styles.label}>Level of Study:</Text>
-          <TextInput
-            style={styles.input}
+          
+           <SelectList
+            style={styles.inputt}
+            setSelected={(val) => setStudyLevel(val)}
+            data={levelOfStudy}
+            save="value"
             placeholder="Level of Study"
-            value={studyLevel}
-            onChangeText={setStudyLevel}
           />
           <Text style={styles.label}>Mode of Study:</Text>
           <SelectList
@@ -392,6 +411,7 @@ export default function WelcomeScreen() {
             save="value"
             placeholder="Mode of study"
           />
+          
           <Text style={styles.label}>Family Status:</Text>
           <SelectList
             style={styles.inputt}
@@ -400,27 +420,22 @@ export default function WelcomeScreen() {
             save="value"
             placeholder="Family status"
           />
-          <Text style={styles.label}>Father's Income:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Father's Income"
-            value={fatherIncome}
-            onChangeText={setFatherIncome}
-          />
-          <Text style={styles.label}>Mother's Income:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Mother's Income"
-            value={motherIncome}
-            onChangeText={setMotherIncome}
+          <Text style={styles.label}>Family's Income:</Text>
+       
+          <SelectList
+            style={styles.inputt}
+            setSelected={(val) => setFatherIncome(val)}
+            data={familyEarnings}
+            save="value"
+            placeholder="Family Income"
           />
           <Text style={styles.label}>Date of Application</Text>
           <TextInput
-        style={styles.input}
-        placeholder="DD/MM/YYYY"
-        value={applicationDate}
-        onChangeText={handleApplicationDateChange}
-      />
+            style={styles.input}
+            placeholder="DD/MM/YYYY"
+            value={applicationDate}
+            onChangeText={handleApplicationDateChange}
+          />
 
           <Pressable
             onPress={handleFormSubmit}

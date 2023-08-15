@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Pressable, Text, View, Image, StyleSheet } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -21,6 +22,15 @@ const Header = () => {
         console.log("Error fetching isAdmin status:", error);
       });
   }, []);
+  const handleLogout = async () => {
+    // Clear AsyncStorage (including isAdmin status)
+    try {
+      await AsyncStorage.clear();
+      navigation.navigate("Login"); // Navigate to the login screen
+    } catch (error) {
+      console.error("Error clearing AsyncStorage:", error);
+    }
+  };
 
   return (
     <>
@@ -60,7 +70,15 @@ const Header = () => {
             <Entypo name="user" size={24} color="white" />
             <Text style={styles.buttonText}>Admin</Text>
           </Pressable>
+          
         )}
+         <Pressable
+          onPress={() => navigation.navigate("Login")}
+          style={styles.buttonContainer}
+        >
+         <AntDesign name="logout" size={24} color="white" />
+          <Text style={styles.buttonText}>Log out</Text>
+        </Pressable>
       </View>
     </>
   );

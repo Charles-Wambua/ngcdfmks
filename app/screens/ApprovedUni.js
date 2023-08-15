@@ -208,26 +208,9 @@ const ApprovedUni = () => {
         </Pressable>
        
 
-        <Pressable style={{ flexDirection: "row", alignItems: "center" }}>
-          <Ionicons name="filter" size={22} color="gray" />
-          <Text style={{ fontSize: 15, fontWeight: "500", marginLeft: 8 }}>
-            Filter
-          </Text>
-        </Pressable>
+        
 
-        <Pressable
-          onPress={() =>
-            navigation.navigate("Map", {
-              searchResults: searchPlaces,
-            })
-          }
-          style={{ flexDirection: "row", alignItems: "center" }}
-        >
-          <FontAwesome5 name="map-marker-alt" size={22} color="gray" />
-          <Text style={{ fontSize: 15, fontWeight: "500", marginLeft: 8 }}>
-            Map
-          </Text>
-        </Pressable>
+      
       </Pressable>
       <View style={styles.container}>
         <Text style={styles.title}>Approved Applicants</Text>

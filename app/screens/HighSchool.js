@@ -67,7 +67,7 @@ export default function WelcomeScreen() {
       formData.append("subLocation", selectedSubLocation);
       formData.append("familyStatus", selectedFamilyStatus);
       formData.append("fatherIncome", fatherIncome);
-      formData.append("motherIncome", motherIncome);
+    
       formData.append("applicationDate", applicationDate);
      
       formData.append("images", {
@@ -119,7 +119,7 @@ export default function WelcomeScreen() {
           setIsLoading(false);
           console.error("API Error:", error);
           if (error.response && error.response.status === 400) {
-            alert(error.response.data.error);
+            alert(error.response.data.message);
           } else {
             alert("An error occurred. Please try again later.");
           }
@@ -143,7 +143,7 @@ export default function WelcomeScreen() {
     setBirthCertificate("");
     setSelectedFamilyStatus("");
     setFatherIncome("");
-    setMotherIncome("");
+  
     setApplicationDate("");
     // Clear image fields
     setIdCardFrontImage(null);
@@ -204,6 +204,12 @@ export default function WelcomeScreen() {
       "Kiima Kimwe": ["Katoloni", "Kiima Kimwe", "Mwanyani", "Mbilini"],
     },
   };
+  const familyEarnings = [
+    { key: "1", value: "Less than 20,000" },
+    { key: "2", value: "Less than 50,000" },
+    { key: "3", value: "Less than 100,000" },
+    { key: "4", value: "N/A" },
+  ];
 
   const ward = Object.keys(wardLocations);
   const location = selectedWard
@@ -230,19 +236,20 @@ export default function WelcomeScreen() {
   };
   const validateForm = () => {
     if (
-      (id === "" && birthCertificate === "") || // Both ID and Birth Certificate are empty
-      (id !== "" && birthCertificate !== "") // Both ID and Birth Certificate are filled
-    ) {
-      Alert.alert(
-        "Error",
-        "Please provide either the ID or Birth Certificate, but not both."
-      );
-      return false;
-    }
-    if (
+    //   (id === "" && birthCertificate === "") || // Both ID and Birth Certificate are empty
+    //   (id !== "" && birthCertificate !== "") // Both ID and Birth Certificate are filled
+    // ) {
+    //   Alert.alert(
+    //     "Error",
+    //     "Please provide either the ID or Birth Certificate, but not both."
+    //   );
+    //   return false;
+    // }
+    // if (
       name === "" ||
       gender === "" ||
-      (id === "" && birthCertificate === "") ||
+      id === ""  ||
+      birthCertificate === "" ||
       institution === "" ||
       admRegNo === "" ||
       semester === "" ||
@@ -252,7 +259,7 @@ export default function WelcomeScreen() {
       subLocation === "" ||
       familyStatus === "" ||
       fatherIncome === "" ||
-      motherIncome === "" ||
+      
       applicationDate === ""
     ) {
       Alert.alert("Error", "Please fill in all the required fields");
@@ -264,8 +271,8 @@ export default function WelcomeScreen() {
     // Validate the ID input using a regular expression
     if (/^\d{0,8}$/.test(input)) {
       setID(input);
-      // Clear the Birth Certificate input if ID is filled
-      setBirthCertificate("");
+      
+     
     }
   };
 
@@ -273,8 +280,7 @@ export default function WelcomeScreen() {
     // Validate the Birth Certificate input length
     if (input.length <= 12) {
       setBirthCertificate(input);
-      // Clear the ID input if Birth Certificate is filled
-      setID("");
+      
     }
   };
   const handleApplicationDateChange = (input) => {
@@ -449,20 +455,15 @@ export default function WelcomeScreen() {
             save="value"
             placeholder="Family status"
           />
-          <Text style={styles.label}>Father's Income:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Father's Income"
-            value={fatherIncome}
-            onChangeText={setFatherIncome}
-          />
-          <Text style={styles.label}>Mother's Income:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Mother's Income"
-            value={motherIncome}
-            onChangeText={setMotherIncome}
-          />
+          <Text style={styles.label}>Family's Income:</Text>
+       
+       <SelectList
+         style={styles.inputt}
+         setSelected={(val) => setFatherIncome(val)}
+         data={familyEarnings}
+         save="value"
+         placeholder="Family Income"
+       />
           <Text style={styles.label}>Date of Application</Text>
           <TextInput
             style={styles.input}

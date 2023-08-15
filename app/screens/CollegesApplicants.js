@@ -185,26 +185,9 @@ const CollegesApplicants = () => {
           </Text>
         </Pressable>
 
-        <Pressable style={{ flexDirection: "row", alignItems: "center" }}>
-          <Ionicons name="filter" size={22} color="gray" />
-          <Text style={{ fontSize: 15, fontWeight: "500", marginLeft: 8 }}>
-            Filter
-          </Text>
-        </Pressable>
+      
 
-        <Pressable
-          onPress={() =>
-            navigation.navigate("Map", {
-              searchResults: searchPlaces,
-            })
-          }
-          style={{ flexDirection: "row", alignItems: "center" }}
-        >
-          <FontAwesome5 name="map-marker-alt" size={22} color="gray" />
-          <Text style={{ fontSize: 15, fontWeight: "500", marginLeft: 8 }}>
-            Map
-          </Text>
-        </Pressable>
+       
       </Pressable>
       {loading ? (
         <View
@@ -288,8 +271,12 @@ const CollegesApplicants = () => {
             transparent={true}
             onRequestClose={closeModal}
           >
-            <View style={styles.modalContainer}>
-              <View style={styles.modalContent}>
+              <View style={styles.modalContainer}>
+                
+                <ScrollView style={styles.modalContent}>
+                <Pressable style={styles.modalCloseButton} onPress={closeModal}>
+                  <Text style={styles.modalCloseButtonText}>Close</Text>
+                </Pressable>
                 {selectedApplicant && (
                   <>
                     <Text style={styles.modalTitle}>Applicant Details</Text>
@@ -353,10 +340,8 @@ const CollegesApplicants = () => {
                   </>
                 )}
 
-                <Pressable style={styles.modalCloseButton} onPress={closeModal}>
-                  <Text style={styles.modalCloseButtonText}>Close</Text>
-                </Pressable>
-              </View>
+                
+              </ScrollView>
             </View>
           </Modal>
           <Modal
